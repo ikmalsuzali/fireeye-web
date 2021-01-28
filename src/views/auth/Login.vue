@@ -49,9 +49,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -69,8 +66,8 @@ export default {
   },
   methods: {
     postLogin() {
-      axios
-        .post(process.env.VUE_APP_API_URL + `auth/login`, this.form)
+      this.$http
+        .post(`auth/login`, this.form)
         .then((response) => {
           this.$store.dispatch("setAuth", response.data.data);
           this.$router.push("/admin/dashboard");

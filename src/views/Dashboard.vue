@@ -98,8 +98,6 @@
 </template>
 
 <script>
-import moment from "moment";
-import axios from "axios";
 export default {
   data() {
     return {
@@ -108,8 +106,8 @@ export default {
   },
   methods: {
     getDashboardItems() {
-      axios
-        .get(process.env.VUE_APP_API_URL + "admin/dashboard")
+      this.$http
+        .get("admin/dashboard")
         .then((response) => {
           if (response.data) {
             this.item = response.data.data;

@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import AuthLayout from "@/layouts/Auth";
 import Login from "@/views/auth/Login";
 import admin from "./admin";
-import i18n from "@/i18n";
+import i18n from "../../helpers/i18n";
 import store from "../store/index";
 
 Vue.use(VueRouter);

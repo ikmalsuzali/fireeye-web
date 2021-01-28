@@ -308,7 +308,6 @@
 
 <script>
 import moment from "moment";
-import axios from "axios";
 import get from "get-value";
 export default {
   data() {
@@ -392,10 +391,9 @@ export default {
       }
     },
     postReplacementSerialNo() {
-      axios
+      this.$http
         .post(
-          process.env.VUE_APP_API_URL +
-            `admin/replace/${this.selectedReplacementItem.id}/replacement/${this.selectedReplacedItem.id}`
+          `admin/replace/${this.selectedReplacementItem.id}/replacement/${this.selectedReplacedItem.id}`
         )
         .then((response) => {
           console.log(response);
@@ -412,12 +410,8 @@ export default {
         });
     },
     deleteSerialNo() {
-      axios
-        .delete(
-          process.env.VUE_APP_API_URL +
-            "admin/serial-number/" +
-            this.selectedDeletedItem.id
-        )
+      this.$http
+        .delete("admin/serial-number/" + this.selectedDeletedItem.id)
         .then((response) => {
           if (response.data) {
             this.snackBar.enabled = true;
@@ -430,10 +424,12 @@ export default {
         .catch((error) => {});
     },
     getSerialNos() {
-      axios
-        .get(process.env.VUE_APP_API_URL + "admin/serial-number", {
+      this.$http
+        .get("admin/serial-number", {
           params: {
             page: this.options.page,
+            sort_by: this.options.sortBy ? this.options.sortBy[0] : null,
+            descending: this.options.sortDesc ? this.options.sortDesc[0] : null,
             rows_per_page: this.options.itemsPerPage,
             search: this.search,
             status: this.selectedStatus.value,
@@ -448,8 +444,8 @@ export default {
         .catch((error) => {});
     },
     getSerialNoLookup() {
-      axios
-        .get(process.env.VUE_APP_API_URL + "lookup/serial-number", {
+      this.$http
+        .get("lookup/serial-number", {
           params: {
             status: 1,
           },
@@ -462,11 +458,8 @@ export default {
         .catch((error) => {});
     },
     postGenerateSerialNo() {
-      axios
-        .post(
-          process.env.VUE_APP_API_URL + "admin/generate/serial-number",
-          this.generateRecord
-        )
+      this.$http
+        .post("admin/generate/serial-number", this.generateRecord)
         .then((response) => {
           if (response.data) {
             this.generateRecord = this.defaultGenerateRecord;

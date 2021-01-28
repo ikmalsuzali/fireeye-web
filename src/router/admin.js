@@ -2,7 +2,7 @@ import Vue from "vue";
 import AdminLayout from "@/layouts/Admin";
 import Dashboard from "@/views/Dashboard";
 import Error from "@/views/Error";
-import i18n from "@/i18n";
+import i18n from "../../helpers/i18n";
 import store from "../store/index";
 
 /**
@@ -21,7 +21,7 @@ export default {
     {
       path: "/admin/profile",
       name: "profile",
-      component: () => import("@/resources/profile/Detail"),
+      component: () => import("@/views/profile/Detail"),
       meta: {
         title: i18n.t("routes.profile"),
       },
@@ -37,24 +37,15 @@ export default {
     {
       path: "/admin/serial-no",
       name: "serial-no",
-      component: () => import("@/resources/serial-nos/List"),
+      component: () => import("@/views/serial-nos/List"),
       meta: {
         title: "Serial No(s)",
       },
     },
     {
-      path: "/admin/serial-no/:id",
-      name: "serial-no.detail",
-      component: () => import("@/resources/serial-nos/Detail"),
-      meta: {
-        title: "Serial No",
-      },
-      props: true,
-    },
-    {
       path: "/admin/customer",
       name: "customer",
-      component: () => import("@/resources/customers/List"),
+      component: () => import("@/views/customers/List"),
       meta: {
         title: "Customer",
       },
@@ -62,7 +53,7 @@ export default {
     {
       path: "/admin/customer/:id",
       name: "customer",
-      component: () => import("@/resources/customers/List"),
+      component: () => import("@/views/customers/List"),
       meta: {
         title: "Customer",
       },

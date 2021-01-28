@@ -189,8 +189,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -260,13 +258,9 @@ export default {
     postVerification(activationType) {
       this.record.activation_type = activationType;
 
-      axios
-        .post(
-          process.env.VUE_APP_API_URL + `customer/send/activation-code`,
-          this.record
-        )
+      this.$http
+        .post(`customer/send/activation-code`, this.record)
         .then((response) => {
-          console.log(response);
           this.snackBar.enabled = true;
           this.snackBar.message = "Successfully send activation code";
           this.isActivationTypeDialog = false;
@@ -277,13 +271,9 @@ export default {
         });
     },
     postConfirmVerification() {
-      axios
-        .post(
-          process.env.VUE_APP_API_URL + `customer/confirm/activation-code`,
-          this.record
-        )
+      this.$http
+        .post(`customer/confirm/activation-code`, this.record)
         .then((response) => {
-          console.log(response);
           this.isSuccessDialog = true;
           this.getSerialNoLookup();
           this.snackBar.enabled = true;
@@ -302,8 +292,8 @@ export default {
         });
     },
     getSerialNoLookup() {
-      axios
-        .get(process.env.VUE_APP_API_URL + "lookup/serial-number", {
+      this.$http
+        .get("lookup/serial-number", {
           params: {
             status: 1,
           },
@@ -329,8 +319,6 @@ export default {
         return updatedItem;
       });
 
-      console.log(this.record.serial_nos);
-
       this.serialNolookupItems.forEach((lookupItem) => {
         this.record.serial_nos.forEach((item) => {
           if (lookupItem.serial_no == item.serial_no) {
@@ -338,23 +326,6 @@ export default {
           }
         });
       });
-
-      // if (serialNo && serialNo.length > 8) {
-      //   let foundSerialNo = this.serialNolookupItems.map((item, index) => {
-      //     if (item.serial_no == serialNo) {
-      //       return item;
-      //     }
-      //   });
-
-      //   if (foundSerialNo) {
-      //     console.log(serialNo);
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // } else {
-      //   return false;
-      // }
     },
   },
   created() {

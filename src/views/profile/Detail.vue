@@ -5,9 +5,6 @@
         <v-toolbar-title>
           {{ "Profile" }}
         </v-toolbar-title>
-        <!-- <v-spacer></v-spacer>
-        <v-btn class="mx-4">Replace</v-btn>
-        <v-btn color="red">Delete</v-btn> -->
       </v-toolbar>
       <v-container fluid>
         <v-row>
@@ -20,11 +17,6 @@
                   indeterminate
                 ></v-progress-linear>
               </template>
-
-              <!-- <v-img
-                height="250"
-                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              ></v-img> -->
 
               <v-card-title>{{ $store.state.auth.user.name }}</v-card-title>
               <v-card-text>
@@ -235,7 +227,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import moment from "moment";
 
 export default {
@@ -287,7 +278,6 @@ export default {
     },
     onDeleteClick(item) {
       this.isDeleteDialogEnabled = true;
-      console.log(item);
       this.record = {
         id: item.id,
         name: item.name,
@@ -295,8 +285,8 @@ export default {
       };
     },
     addUser() {
-      axios
-        .post(process.env.VUE_APP_API_URL + "admin/user", this.record)
+      this.$http
+        .post("admin/user", this.record)
         .then((response) => {
           if (response.data) {
             this.snackBar.enabled = true;
@@ -309,11 +299,8 @@ export default {
         .catch((error) => {});
     },
     editUser() {
-      axios
-        .put(
-          process.env.VUE_APP_API_URL + "admin/user/" + this.record.id,
-          this.record
-        )
+      this.$http
+        .put("admin/user/" + this.record.id, this.record)
         .then((response) => {
           if (response.data) {
             this.snackBar.enabled = true;
@@ -326,8 +313,8 @@ export default {
         .catch((error) => {});
     },
     deleteUser() {
-      axios
-        .delete(process.env.VUE_APP_API_URL + "admin/user/" + this.record.id)
+      this.$http
+        .delete("admin/user/" + this.record.id)
         .then((response) => {
           if (response.data) {
             this.snackBar.enabled = true;
@@ -340,8 +327,8 @@ export default {
         .catch((error) => {});
     },
     getUsers() {
-      axios
-        .get(process.env.VUE_APP_API_URL + "admin/user")
+      this.$http
+        .get("admin/user")
         .then((response) => {
           if (response.data) {
             this.userItems = response.data.data;
@@ -350,12 +337,11 @@ export default {
         .catch((error) => {});
     },
     onResetPassword(email) {
-      axios
-        .post(process.env.VUE_APP_API_URL + `admin/auth/send-password-reset`, {
+      this.$http
+        .post(`admin/auth/send-password-reset`, {
           email: email,
         })
         .then((response) => {
-          console.log(response);
           this.snackBar.enabled = true;
           this.snackBar.message = "Successfully send password reset";
           this.isResetPasswordDialogEnabled = false;

@@ -73,9 +73,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -95,8 +92,8 @@ export default {
   },
   methods: {
     postPasswordReset() {
-      axios
-        .post(process.env.VUE_APP_API_URL + `auth/password-reset`, this.form)
+      this.$http
+        .post(`auth/password-reset`, this.form)
         .then((response) => {
           this.$store.dispatch("logout");
           this.$router.push("/login");

@@ -65,6 +65,10 @@
             </td>
             <td>
               <v-icon
+                v-if="
+                  $store.getters.getUserRole == 'admin' ||
+                  $store.getters.getUserRole == 'moderator'
+                "
                 small
                 color="secondary"
                 class="mr-2"
@@ -182,7 +186,6 @@
 
 <script>
 import moment from "moment";
-import axios from "axios";
 export default {
   data() {
     return {
@@ -201,13 +204,12 @@ export default {
         {
           text: "Name",
           align: "start",
-          sortable: false,
           value: "name",
         },
         { text: "Mobile No", value: "mobile_number" },
         { text: "Email", value: "email" },
         { text: "Created Date", value: "created_at" },
-        { text: "No of Products", value: "products" },
+        { text: "No of Products", value: "products", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };
@@ -236,11 +238,8 @@ export default {
       this.isEditDialogEnabled = true;
     },
     putEditCustomer() {
-      axios
-        .put(
-          process.env.VUE_APP_API_URL + "admin/customer/" + this.record.id,
-          this.record
-        )
+      this.$http
+        .put("admin/customer/" + this.record.id, this.record)
         .then((response) => {
           if (response.data) {
             this.getCustomers();
@@ -251,7 +250,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
           this.snackBar.enabled = true;
           this.snackBar.message = "Cannot edit customer at the moment";
         });
@@ -294,10 +292,12 @@ export default {
       this.getCustomers();
     },
     getCustomers() {
-      axios
-        .get(process.env.VUE_APP_API_URL + "admin/customer", {
+      this.$http
+        .get("admin/customer", {
           params: {
             page: this.options.page,
+            sort_by: this.options.sortBy ? this.options.sortBy[0] : null,
+            descending: this.options.sortDesc ? this.options.sortDesc[0] : null,
             rows_per_page: this.options.itemsPerPage,
             search: this.search,
           },
