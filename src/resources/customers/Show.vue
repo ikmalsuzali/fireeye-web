@@ -1,5 +1,8 @@
 <template>
-  <va-show-layout :title="title">
+  <div>
+    <!-- <v-container>hello</v-container> -->
+  </div>
+  <!-- <va-show-layout :title="title">
     <va-show :item="item">
       <v-row justify="center">
         <v-col sm="4">
@@ -36,12 +39,12 @@
         </va-list>
       </v-card-text>
     </v-card>
-  </va-show-layout>
+  </va-show-layout> -->
 </template>
 
 <script>
 export default {
-  props: ["id", "title", "item"],
+  // props: ["id", "title", "item"],
   data() {
     return {
       fields: [{ source: "title", sortable: true }, "body"],

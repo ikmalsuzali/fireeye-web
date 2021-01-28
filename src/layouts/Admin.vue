@@ -1,71 +1,75 @@
 <template>
-  <va-layout>
-    <va-app-bar
+  <v-layout>
+    <app-bar
       slot="app-bar"
       :header-menu="headerMenu"
       :profile-menu="profileMenu"
       dense
-      dark
       @toggle="
         $vuetify.breakpoint.lgAndUp ? (mini = !mini) : (drawer = !drawer)
       "
-    ></va-app-bar>
-    <va-sidebar
+    ></app-bar>
+    <custom-sidebar
       slot="sidebar"
       :menu="sidebarMenu"
       v-model="drawer"
       :mini-variant="mini"
-    ></va-sidebar>
-    <va-breadcrumbs slot="header"></va-breadcrumbs>
-    <va-footer slot="footer" :menu="footerMenu">
-      <v-icon size="18"> mdi-xml </v-icon>
-      with
-      <v-icon size="18"> mdi-heart </v-icon>
-      by
+    ></custom-sidebar>
+    <breadcrumbs slot="header"></breadcrumbs>
+    <!-- <va-footer slot="footer" :menu="footerMenu">
+      FireEye System made by
       <a
-        href="https://www.okami101.io/vuetify-admin"
+        href="https://ikmalsuzal.mytester.space"
         target="_blank"
         class="font-weight-bold"
-        >Okami 101</a
       >
-    </va-footer>
-  </va-layout>
+        Ikmal Suzali
+      </a>
+    </va-footer> -->
+  </v-layout>
 </template>
 
 <script>
 import nav from "../_nav";
+import Breadcrumbs from "../components/Breadcrumbs";
+import AppBar from "../components/AppBar";
+import VLayout from "../components/VLayout";
+import CustomSidebar from "../components/CustomSidebar";
 
 export default {
   name: "App",
+  components: {
+    Breadcrumbs,
+    AppBar,
+    VLayout,
+    CustomSidebar,
+  },
   data() {
     return {
       drawer: null,
       mini: false,
-      headerMenu: [
-        {
-          link: "/",
-          text: this.$t("menu.dashboard"),
-        },
-      ],
+      headerMenu: [],
       footerMenu: [
-        {
-          href: "https://github.com/okami101/vuetify-admin",
-          text: "Github",
-        },
-        {
-          href: "https://www.okami101.io/vuetify-admin",
-          text: "Docs",
-        },
-        {
-          href: "https://va-demo.okami101.io",
-          text: "Demo",
-        },
-        {
-          href: "https://adr1enbe4udou1n.mit-license.org",
-          text: "License",
-        },
+        // {
+        //   href: "https://github.com/okami101/vuetify-admin",
+        //   text: "Gi thub",
+        // },
+        // {
+        //   href: "https://www.okami101.io/vuetify-admin",
+        //   text: "Docs",
+        // },
+        // {
+        //   href: "https://va-demo.okami101.io",
+        //   text: "Demo",
+        // },
+        // {
+        //   href: "https://adr1enbe4udou1n.mit-license.org",
+        //   text: "License",
+        // },
       ],
-      profileMenu: [],
+      profileMenu: [
+        { icon: "mdi-account", text: "Profile", link: "/admin/profile" },
+      ],
       sidebarMenu: nav(this.$i18n, this.$admin),
     };
   },

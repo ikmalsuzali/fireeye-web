@@ -1,7 +1,7 @@
 <template>
-  <va-create-layout :title="title">
+  <!-- <va-create-layout :title="title">
     <posts-form :item="item"></posts-form>
-  </va-create-layout>
+  </va-create-layout> -->
 </template>
 
 <script>

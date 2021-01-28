@@ -1,5 +1,5 @@
 module.exports = {
-  transpileDependencies: ["vuetify"],
+  transpileDependencies: ["vuetify", "vuex-persist"],
   pluginOptions: {
     i18n: {
       locale: "en",

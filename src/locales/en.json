@@ -3,11 +3,13 @@
     "en": "English",
     "fr": "French"
   },
+  "serial_no": "Serial No.",
   "routes": {
     "home": "Home",
     "login": "Login",
     "profile": "Profile",
     "dashboard": "Dashboard",
+    "serial_no": "Serial No.",
     "not_found": "Not found"
   },
   "auth": {
